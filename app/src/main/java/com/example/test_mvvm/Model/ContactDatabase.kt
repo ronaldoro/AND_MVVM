@@ -10,11 +10,14 @@ abstract class ContactDatabase: RoomDatabase() {
 
     abstract fun contactDao(): ContactDao
 
+    //for use Database as singleton
     companion object {
         private var INSTANCE: ContactDatabase? = null
 
         fun getInstance(context: Context): ContactDatabase? {
             if (INSTANCE == null) {
+
+                //Prevent to access other threads
                 synchronized(ContactDatabase::class) {
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
                         ContactDatabase::class.java, "contact")
