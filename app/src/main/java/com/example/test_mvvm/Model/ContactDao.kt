@@ -1,7 +1,7 @@
 package com.example.test_mvvm.Model
 
-import android.arch.persistence.room.*
 import androidx.lifecycle.LiveData
+import androidx.room.*
 
 @Dao
 interface ContactDao {
