@@ -22,8 +22,9 @@ class MainActivity : AppCompatActivity() {
             .get(ContactViewModel::class.java)
 
         //observe lifecycle of Activity or Fragment
-        //contactViewModel.getAll().observe(this, Observer<List<Contact>> { contacts ->
+        contactViewModel.getAll().observe(this, Observer<List<Contact>> { contacts ->
             // Update UI
-        //})
+        })
+
     }
 }
