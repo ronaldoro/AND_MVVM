@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.test_mvvm.Adapter.ContactAdapter
 import com.example.test_mvvm.Model.Contact
 import com.example.test_mvvm.ViewModel.ContactViewModel
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,9 +45,20 @@ class MainActivity : AppCompatActivity() {
             adapter.setContacts(contacts!!) // Update UI
         })
 
-        val contact = Contact(1, "name", "number", 'c')
-        contactViewModel.insert(contact)
+        //val contact = Contact(1, "name2", "number2", 'H')
+        //contactViewModel.insert(contact)
 
+        //globalScope
+        GlobalScope.launch {
+            delay(2000L)
+
+            val contact = Contact(1, "name", "number", 'C')
+            insertData(contact)
+        }
+    }
+
+    private suspend fun insertData(contact: Contact) {
+        contactViewModel.insert(contact)
     }
 
     private fun deleteDialog(contact: Contact) {
@@ -54,7 +66,10 @@ class MainActivity : AppCompatActivity() {
         builder.setMessage("Delete selected contact?")
             .setNegativeButton("NO") { _, _ -> }
             .setPositiveButton("YES") { _, _ ->
-                contactViewModel.delete(contact)
+
+                GlobalScope.launch {
+                    contactViewModel.delete(contact)
+                }
             }
         builder.show()
     }

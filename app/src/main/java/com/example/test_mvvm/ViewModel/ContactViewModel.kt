@@ -25,11 +25,11 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
         return this.contacts
     }
 
-    fun insert(contact: Contact) {
+    suspend fun insert(contact: Contact) {
         repository.insert(contact)
     }
 
-    fun delete(contact: Contact) {
+    suspend fun delete(contact: Contact) {
         repository.delete(contact)
     }
 }
